@@ -2,11 +2,31 @@ version: '3.5'
 services:
   database:
     container_name: postgres
-    image: postgres:latest
-    env_file: SQl Generator/database.conf
+    build:
+      dockerfile: ./db/Dockerfile
+    env_file: database.conf
     ports:
       - 5432:5432
     volumes:
       - db_volume:/var/lib/postgresql
+
+  parser:
+    depends_on:
+      - database
+    container_name: parser
+    build:
+      dockerfile: ./Scraper/Dockerfile
+    env_file: database.conf
+
+  server:
+    depends_on:
+      - database
+    container_name: flask
+    build:
+      dockerfile: ./App/Dockerfile
+    env_file: database.conf
+    ports:
+      - 30010:30010
+
 volumes:
   db_volume:
