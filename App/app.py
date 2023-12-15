@@ -1,7 +1,7 @@
 from flask import render_template as rt, request
 import App_generator
 from db_config import MarketBin
-import queryMaker
+import querySpecifier
 
 app = App_generator.create_app()
 
@@ -15,7 +15,7 @@ def home():
 @app.route('/result', methods=["get"])
 def result():
     cat = request.args.get('hidden')
-    item = queryMaker.get(MarketBin).filter(category=cat, new_price=min(MarketBin.new_price))
+    item = querySpecifier.get(MarketBin).filter(category=cat, new_price=min(MarketBin.new_price))
     #cat_min_price = con.execute("SELECT MIN(Новая_цена) FROM items WHERE Категория = ?", (cat,)).fetchone()
     #output = con.execute("SELECT Товар, Новая_цена, Скидка FROM items WHERE Категория = ? AND Новая_цена = ?",
                                  #(cat, cat_min_price[0])).fetchone()
