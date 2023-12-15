@@ -13,7 +13,7 @@ services:
   parser:
     depends_on:
       - database
-    container_name: parser
+    container_name: scraper
     build:
       dockerfile: ./Scraper/Dockerfile
     env_file: database.conf
