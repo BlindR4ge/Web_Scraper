@@ -1,7 +1,10 @@
+import time
 from flask import render_template as rt, request
 import App_generator
 from db_config import MarketBin
 import querySpecifier
+
+time.sleep(10)
 
 app = App_generator.create_app()
 

@@ -4,6 +4,7 @@ from Web_Scraper import config
 from Database import Market_Bin
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
+import time
 
 market_list = []
 
@@ -16,6 +17,8 @@ def df_filling(item_group, cat, market_list):
         item_info = [name.strip(), old_price, new_price, cat, discount]
         market_list.append(item_info)
 
+
+time.sleep(15)
 
 engine = create_engine(config.DATABASE_CONNECTION_URI)
 engine.connect()
