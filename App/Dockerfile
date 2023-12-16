@@ -8,7 +8,7 @@ RUN pip3 --no-cache-dir install --upgrade virtualenv
 RUN python3 -m venv venv
 
 RUN mkdir mycode
-COPY app mycode
+COPY App mycode
 RUN ls -l
 
 WORKDIR mycode

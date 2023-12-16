@@ -7,8 +7,8 @@ RUN python3 -m pip install --upgrade pip setuptools wheel build
 RUN pip3 --no-cache-dir install --upgrade virtualenv
 RUN python3 -m venv venv
 
-RUN mkdir myparser
-COPY parser myparser
+RUN mkdir myscraper
+COPY Scraper myscraper
 RUN ls -l
 
 WORKDIR myparser
