@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup as bs
 import requests
-from Web_Scraper import config
+import config
 from Database import Market_Bin
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine

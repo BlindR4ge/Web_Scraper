@@ -1,7 +1,7 @@
 from flask import Flask
 
 from db_config import db
-from Web_Scraper import config
+import config
 
 
 def create_app():
