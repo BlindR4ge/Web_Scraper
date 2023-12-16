@@ -1,9 +1,9 @@
 from db_config import db
 
 
-def get(model):
-    data = model.query.get()
-    return data
+def find_user(model, **kwargs):
+    user_info = model.query.filter_by(**kwargs).first()
+    return user_info
 
 
 def add_instance(model, **kwargs):
