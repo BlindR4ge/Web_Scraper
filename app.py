@@ -33,13 +33,11 @@ def result():
         cat_min_price = con.execute("SELECT MIN(Новая_цена) FROM items WHERE Категория = ?", (cat,)).fetchone()
         output = con.execute("SELECT Товар, Новая_цена, Скидка FROM items WHERE Категория = ? AND Новая_цена = ?",
                              (cat, cat_min_price[0])).fetchone()
-        print(f'''Товар: {output[0]}\nЦена с учетом скидки : {output[1]}р.\nСкидка: {output[2]}%''')
+        #print(f'''Товар: {output[0]}\nЦена с учетом скидки : {output[1]}р.\nСкидка: {output[2]}%''')
     return rt("resultpage.html", item=output[0], price=output[1], discount=output[2])
 
 
 if __name__ == '__main__':
     os.system("python sql-generator.py")
-    time.sleep(25)
     os.system("python web_scraper.py")
-    time.sleep(60)
-    app.run(port=5000)
+    app.run(port=5000, host='0.0.0.0', debug=True)
