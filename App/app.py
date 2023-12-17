@@ -18,7 +18,7 @@ def home():
 @app.route('/result', methods=["get"])
 def result():
     cat = request.args.get('hidden')
-    item = querySpecifier.find_product_info(MarketBin, cat)
+    item = querySpecifier.select(MarketBin, cat)
     #cat_min_price = con.execute("SELECT MIN(Новая_цена) FROM items WHERE Категория = ?", (cat,)).fetchone()
     #output = con.execute("SELECT Товар, Новая_цена, Скидка FROM items WHERE Категория = ? AND Новая_цена = ?",
                                  #(cat, cat_min_price[0])).fetchone()

@@ -1,10 +1,10 @@
 from db_config import db
-from flask_sqlalchemy import func
+from sqlalchemy import func
 
 
-def find_product_info(model, category):
-    min_price = db.session.query(func.min(model.new_price)).filter(model.category == category).scalar()
-    product_info = model.query.filter_by(category=category, new_price=min_price).first()
+def select(model, cat):
+    min_price = db.session.query(func.min(model.new_price)).filter(model.category == cat).scalar()
+    product_info = db.session.query(model).filter(model.category == cat, model.new_price == min_price).first()
     if product_info:
         return product_info.item, min_price, product_info.discount
     else:

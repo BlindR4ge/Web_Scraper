@@ -43,5 +43,5 @@ while(True):
         if (result == None):
             session.add(Market_Bin)
             session.commit()
-    time.sleep(400)
+    time.sleep(100)
 
