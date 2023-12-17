@@ -18,11 +18,12 @@ def home():
 @app.route('/result', methods=["get"])
 def result():
     cat = request.args.get('hidden')
-    item = querySpecifier.find_user(MarketBin, category=cat, new_price=min(MarketBin.new_price))
+    min_price = querySpecifier.minimal(MarketBin, cat)
+    item = querySpecifier.find_user(MarketBin, category=cat, new_price=min_price)
     #cat_min_price = con.execute("SELECT MIN(Новая_цена) FROM items WHERE Категория = ?", (cat,)).fetchone()
     #output = con.execute("SELECT Товар, Новая_цена, Скидка FROM items WHERE Категория = ? AND Новая_цена = ?",
                                  #(cat, cat_min_price[0])).fetchone()
-    return rt("resultpage.html", item=item[1], price=item[3], discount=item[5])
+    return rt("resultpage.html", item=item.item, price=item.new_price, discount=item.discount)
 
 
 if __name__ == '__main__':
