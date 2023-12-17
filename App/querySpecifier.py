@@ -1,9 +1,14 @@
 from db_config import db
+from flask_sqlalchemy import func
 
 
 def find_user(model, **kwargs):
     user_info = model.query.filter_by(**kwargs).first()
     return user_info
+
+def minimal(model, cat):
+    min_price = model.query(func.min(model.new_price)).filter(model.category == cat).scalar()
+    return min_price
 
 
 def add_instance(model, **kwargs):
