@@ -1,5 +1,0 @@
-SQLAlchemy==2.0.23
-psycopg2-binary
-bs4
-lxml
-requests
