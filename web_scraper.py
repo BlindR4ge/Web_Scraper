@@ -17,7 +17,7 @@ class SQLiteConnection:
             self.connection.close()
 
 
-def df_filling(item_group, cat):
+def df_filling(df, item_group, cat):
     for items in item_group:
         name = items.find('div', class_='link-wrap').text
         old_price = int(items.find('mark', class_='old-price').text[:-3].replace(' ', ''))
@@ -28,20 +28,24 @@ def df_filling(item_group, cat):
         df.loc[length] = item_info
 
 
-url = 'https://airsoft-rus.ru/'
-req = requests.get(url)
-bsObject = bs(req.text, "html.parser")
+if __name__ == '__main__':
+    url = 'https://airsoft-rus.ru/'
+    req = requests.get(url)
+    bsObject = bs(req.text, "html.parser")
+
+    data = bsObject.find_all('section', class_='popular-section')
+    sales = data[0].find_all('div', class_='item')
+    hits = data[2].find_all('div', class_='item')
+
+    df = pd.DataFrame(columns=['Товар', 'Старая_цена', 'Новая_цена', 'Категория', 'Скидка'])
+
+    df_filling(df, sales, "Распродажа")
+    df_filling(df, hits, "Хит продаж")
+
+    with SQLiteConnection('items.db') as con:
+        df.to_sql(name='items', con=con, if_exists='append', index=False)
 
 
-data = bsObject.find_all('section', class_='popular-section')
-sales = data[0].find_all('div', class_='item')
-hits = data[2].find_all('div', class_='item')
 
-df = pd.DataFrame(columns=['Товар', 'Старая_цена', 'Новая_цена', 'Категория', 'Скидка'])
 
-df_filling(sales, "Распродажа")
-df_filling(hits, "Хит продаж")
-
-with SQLiteConnection('items.db') as con:
-    df.to_sql(name='items', con=con, if_exists='append', index=False)
 
