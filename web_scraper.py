@@ -2,20 +2,7 @@ from bs4 import BeautifulSoup as bs
 import sqlite3 as sl
 import pandas as pd
 import requests
-
-class SQLiteConnection:
-    def __init__(self, db_file):
-        self.db_file = db_file
-        self.connection = None
-
-    def __enter__(self):
-        self.connection = sl.connect(self.db_file)
-        return self.connection
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        if self.connection:
-            self.connection.close()
-
+from context_manager import SQLiteConnection
 
 def df_filling(df, item_group, cat):
     for items in item_group:
