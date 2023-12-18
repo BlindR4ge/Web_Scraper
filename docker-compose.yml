@@ -4,4 +4,8 @@ services:
     build:
       dockerfile: Dockerfile
     ports:
-      - "5432:5432"
+      - "5000:5000"
+    volumes:
+      - ./database:/app/data
+volumes:
+  database:
